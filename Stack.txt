@@ -8,7 +8,7 @@ public:
 
 	void Push(Type newData)
 	{
-		if (Size <= 1000)
+		if (Size <= (sizeof(data) / sizeof(Type))
 		{
 			data[Size] = newData;
 			Size++;
