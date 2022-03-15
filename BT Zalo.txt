@@ -29,8 +29,9 @@ void AddTail(LinkedList& list, Node* newNode)
 		list.Head = list.Tail = newNode;
 		return;
 	}
-
-	list.Tail = list.Tail->next = newNode;
+	
+	list.Tail->next = newNode;
+	list.Tail = list.Tail->next;
 }
 
 //Bai 2
