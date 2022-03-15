@@ -44,6 +44,8 @@ struct SinglyLinkedList
 
     void Print()
     {
+        if (Head == NULL)
+            return;
         Node* temp = Head;
         cout << temp->Value << " ";
         while (temp->next)
