@@ -17,7 +17,8 @@ public:
 
 	void Pop()
 	{
-		Size--;
+		if (Size > 0)
+			Size--;
 	}
 
 	Type Top()
