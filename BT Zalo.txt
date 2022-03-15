@@ -1,0 +1,228 @@
+#include <iostream>
+#include <cstdlib>
+
+using namespace std;
+
+struct Node
+{
+	int iValue;
+	float fValue;
+	Node* next = NULL;
+
+	Node(float val)
+	{
+		iValue = fValue = val;
+	}
+};
+
+struct LinkedList
+{
+	Node* Head = NULL;
+	Node* Tail = NULL;
+};
+
+//Bai 1
+void AddTail(LinkedList& list, Node* newNode)
+{
+	if (list.Head == NULL)
+	{
+		list.Head = list.Tail = newNode;
+		return;
+	}
+
+	list.Tail = list.Tail->next = newNode;
+}
+
+//Bai 2
+void AddHead(LinkedList& list, Node* newNode)
+{
+	if (list.Head == NULL)
+	{
+		list.Head = list.Tail = newNode;
+		return;
+	}
+
+	newNode->next = list.Head;
+	list.Head = newNode;
+}
+
+//Bai 3
+Node* Find(LinkedList &list, int x)
+{
+	if (list.Head == NULL)
+		return NULL;
+
+	Node* temp = list.Head;
+	if (temp->iValue == x)
+		return temp;
+
+	while (temp->next)
+	{
+		temp = temp->next;
+		if (temp->iValue == x)
+			return temp;
+	}
+
+	return NULL;
+}
+
+//Bai 4
+void RemoveHead(LinkedList& list)
+{
+	if (list.Head == NULL)
+		return;
+	Node* headTemp = list.Head;
+	list.Head = list.Head->next;
+	delete headTemp; 
+}
+
+//Bai 5
+long SumEven(LinkedList list)
+{
+	if (list.Head == NULL)
+		return 0;
+
+	Node* temp = list.Head;
+	long sum = (temp->iValue % 2 == 0) * temp->iValue;
+
+	while (temp->next)
+	{
+		temp = temp->next;
+		sum = (temp->iValue % 2 == 0) * temp->iValue;
+	}
+
+	return sum;
+}
+
+//Bai 6
+Node* NodeWithMaxFloat(LinkedList& list)
+{
+	if (list.Head == NULL)
+		return NULL;
+
+	Node* temp = list.Head;
+	Node* maxNode = temp;
+
+	while (temp->next)
+	{
+		temp = temp->next;
+		if (temp->fValue > maxNode->fValue)
+			maxNode = temp;
+	}
+
+	return maxNode;
+}
+
+//Bai 7
+Node* BeforeTail(LinkedList &list)
+{
+	if (list.Head == list.Tail || list.Head == NULL)
+		return NULL;
+
+	Node* temp = list.Head;
+	while (temp->next != list.Tail)
+		temp = temp->next;
+
+	return temp;
+}
+
+//Bai 8
+void RemoveTail(LinkedList& list)
+{
+	list.Tail = BeforeTail(list);
+	delete list.Tail->next;
+	list.Tail->next = NULL;
+}
+
+//Bai 9
+bool NodeExists(LinkedList& list, Node* q)
+{
+	Node* temp = list.Head;
+	for (; temp; temp = temp->next)
+		if (q == temp)
+			return true;
+
+	return false;
+}
+
+//Bai 10
+Node* BeforeNode(LinkedList& list, Node* node)
+{
+	if (list.Head == list.Tail || list.Head == NULL || node == list.Head)
+		return NULL;
+
+	Node* temp = list.Head;
+	for (; temp->next != node && temp->next; temp = temp->next);
+
+	if (temp == list.Tail)
+		return NULL;
+	return temp;
+}
+
+//Bai 11
+void RemoveNode(LinkedList& list, Node* p)
+{
+	if (list.Head == NULL)
+		return;
+
+	if (p == list.Head)
+	{
+		RemoveHead(list);
+		return;
+	}
+
+	Node* temp = list.Head;
+	for (; temp->next != p && temp; temp = temp->next);
+
+	Node* nodeToDel = temp->next;
+	temp->next = temp->next->next;
+	delete nodeToDel;
+
+	if (p == list.Tail)
+		list.Tail = temp;
+}
+
+//Bai 12
+void FreeAllListMemory(LinkedList& list)
+{
+	if (list.Head == NULL)
+		return;
+	if (list.Head == list.Tail)
+	{
+		delete list.Head;
+		return;
+	}
+
+	Node* curr = list.Head->next;
+	Node* prevCurr = list.Head;
+
+	for (; curr != list.Tail; curr = curr->next)
+	{
+		delete prevCurr;
+		prevCurr = curr;
+	}
+
+	delete curr;
+
+	list.Head = list.Tail = NULL;
+}
+
+//Bai 13
+void SeperateOddAndEven(LinkedList &l, LinkedList& l1, LinkedList& l2)
+{
+	if (l.Head == NULL)
+		return;
+
+	FreeAllListMemory(l1);
+	FreeAllListMemory(l2);
+
+	Node* temp = l.Head;
+	for (; temp; temp = temp->next)
+	{
+		if (temp->iValue % 2)
+			AddTail(l2, new Node(temp->fValue));
+		else AddTail(l1, new Node(temp->fValue));
+	}
+
+	FreeAllListMemory(l);
+}
