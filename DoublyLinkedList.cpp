@@ -19,11 +19,13 @@ public:
 };
 
 template <class T>
-struct DoublyLinkedList
+class DoublyLinkedList
 {
-	unsigned int Count = 0;
 	Node<T>* Head = NULL;
 	Node<T>* Tail = NULL;
+
+public:
+	unsigned int Count = 0;
 
 	void AddTail(T newData)
 	{
