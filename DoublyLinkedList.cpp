@@ -25,33 +25,33 @@ struct DoublyLinkedList
 	Node<T>* Head = NULL;
 	Node<T>* Tail = NULL;
 
-	void AddTail(Node<T>* newNode)
+	void AddTail(T newData)
 	{
 		if (Head == NULL)
 		{
-			Head = Tail = newNode;
+			Head = Tail = new Node<T>(newData);
 			Count++;
 			return;
 		}
 
 		Node<T>* temp = Tail;
-		Tail = Tail->next = newNode;
+		Tail = Tail->next = new Node<T>(newData);
 		Tail->prev = temp;
 		Count++;
 	}
 
-	void AddHead(Node<T>* newNode)
+	void AddHead(T newData)
 	{
 		if (Head == NULL)
 		{
-			Head = Tail = newNode;
+			Head = Tail = new Node<T>(newData);
 			Count++;
 			return;
 		}
 
-		Head->prev = newNode;
-		newNode->next = Head;
-		Head = newNode;
+		Head->prev = new Node<T>(newData);
+		Head->prev->next = Head;
+		Head = Head->prev;
 		Count++;
 	}
 
@@ -171,34 +171,24 @@ struct DoublyLinkedList
 			Tail = ele1;
 	}
 
-	void InsertAt(int index, Node<T>* newNode)
+	void InsertAt(int index, T newData)
 	{
 		if (index <= 0)
 		{
-			AddHead(newNode);
+			AddHead(newData);
 			return;
 		}
 		if (index >= Count)
 		{
-			AddTail(newNode);
+			AddTail(newData);
 			return;
 		}
 
 		Node<T>* tempPrev = ElementAt(index - 1);
 		Node<T>* tempNext = tempPrev->next;
-		tempNext->prev = tempPrev->next = newNode;
-		newNode->next = tempNext;
-		newNode->prev = tempPrev;
+		tempNext->prev = tempPrev->next = new Node<T>(newData);
+		tempPrev->next->next = tempNext;
+		tempPrev->next->prev = tempPrev;
 		Count++;
 	}
 };
-
-int main()
-{
-	DoublyLinkedList<int> list;
-
-	for (int i = 0; i < 4; i++)
-		list.AddTail(new Node<int>(i));
-
-	list.Print();
-}
