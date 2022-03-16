@@ -1,22 +1,23 @@
-template <class Type> class CircularQueue
+template <class T>
+class CircularQueue
 {
 private:
 	int front = 0, rear = -1;
-	Type data[4];
+	T data[1000];
 
 	bool IsFull()
 	{
-		return Size == sizeof(data) / sizeof(Type);
+		return Size == sizeof(data) / sizeof(T);
 	}
 
 public:
 	int Size = 0;
 
-	void Enqueue(Type newData)
+	void Enqueue(T newData)
 	{
 		if (!IsFull())
 		{
-			rear = (rear + 1) % (sizeof(data) / sizeof(Type));
+			rear = (rear + 1) % (sizeof(data) / sizeof(T));
 			data[rear] = newData;
 			Size++;
 		}
@@ -26,19 +27,19 @@ public:
 	{
 		if (Size > 0)
 		{
-			front = (front + 1) % (sizeof(data) / sizeof(Type));
+			front = (front + 1) % (sizeof(data) / sizeof(T));
 			Size--;
 		}
 	}
 
-	Type Front()
+	T Front()
 	{
 		if (Size > 0)
 			return data[front];
 		return NULL;
 	}
 
-	Type Back()
+	T Back()
 	{
 		if (Size > 0)
 			return data[rear];
