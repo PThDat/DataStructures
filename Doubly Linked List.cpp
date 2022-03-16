@@ -1,22 +1,31 @@
-struct Node
+template<class T>
+class Node
 {
-	int Value;
-	Node* next = NULL;
-	Node* prev = NULL;
+	T Data;
 
-	Node(int val)
+public:
+	Node<T>* next = NULL;
+	Node<T>* prev = NULL;
+
+	T GetData()
 	{
-		Value = val;
+		return Data;
+	}
+
+	Node<T>(T val)
+	{
+		Data = val;
 	}
 };
 
+template <class T>
 struct DoublyLinkedList
 {
 	unsigned int Count = 0;
-	Node* Head = NULL;
-	Node* Tail = NULL;
+	Node<T>* Head = NULL;
+	Node<T>* Tail = NULL;
 
-	void AddTail(Node* newNode)
+	void AddTail(Node<T>* newNode)
 	{
 		if (Head == NULL)
 		{
@@ -25,13 +34,13 @@ struct DoublyLinkedList
 			return;
 		}
 
-		Node* temp = Tail;
+		Node<T>* temp = Tail;
 		Tail = Tail->next = newNode;
 		Tail->prev = temp;
 		Count++;
 	}
 
-	void AddHead(Node* newNode)
+	void AddHead(Node<T>* newNode)
 	{
 		if (Head == NULL)
 		{
@@ -50,21 +59,21 @@ struct DoublyLinkedList
 	{
 		if (Head == NULL)
 			return;
-		Node* temp = Head;
-		cout << temp->Value << " ";
+		Node<T>* temp = Head;
+		cout << temp->GetData() << " ";
 		while (temp->next)
 		{
 			temp = temp->next;
-			cout << temp->Value << " ";
+			cout << temp->GetData() << " ";
 		}
 	}
 
-	Node* ElementAt(int index)
+	Node<T>* ElementAt(int index)
 	{
 		if (index < 0 || index >= Count)
 			return NULL;
 
-		Node* temp;
+		Node<T>* temp;
 		if (index <= (Count - 1) / 2)
 		{
 			temp = Head;
@@ -86,11 +95,11 @@ struct DoublyLinkedList
 		if (index < 0 || index >= Count)
 			return;
 
-		Node* temp = ElementAt(index);
+		Node<T>* temp = ElementAt(index);
 		if (temp->prev != NULL)
 			temp->prev->next = temp->next;
 		if (temp->next != NULL)
-		temp->next->prev = temp->prev;
+			temp->next->prev = temp->prev;
 
 		if (temp == Head)
 			Head = temp->next;
@@ -105,7 +114,7 @@ struct DoublyLinkedList
 	{
 		if (index1 >= Count || index2 >= Count || index1 < 0 || index2 < 0 || index1 == index2)
 			return;
-		
+
 		//make sure index2 > index1
 		if (index1 > index2)
 		{
@@ -113,8 +122,8 @@ struct DoublyLinkedList
 			index1 = index2;
 			index2 = temp;
 		}
-		Node* ele1 = ElementAt(index1);
-		Node* ele2 = ElementAt(index2);
+		Node<T>* ele1 = ElementAt(index1);
+		Node<T>* ele2 = ElementAt(index2);
 
 		if (index2 - index1 == 1) //if i1 is next to i2
 		{
@@ -128,7 +137,7 @@ struct DoublyLinkedList
 		else
 		{
 			//Store the path
-			Node* temp = new Node(0);
+			Node<T>* temp = new Node(0);
 			temp->next = ele1->next;
 			temp->prev = ele1->prev;
 
@@ -162,7 +171,7 @@ struct DoublyLinkedList
 			Tail = ele1;
 	}
 
-	void InsertAt(int index, Node* newNode)
+	void InsertAt(int index, Node<T>* newNode)
 	{
 		if (index <= 0)
 		{
@@ -175,11 +184,21 @@ struct DoublyLinkedList
 			return;
 		}
 
-		Node* tempPrev = ElementAt(index - 1);
-		Node* tempNext = tempPrev->next;
+		Node<T>* tempPrev = ElementAt(index - 1);
+		Node<T>* tempNext = tempPrev->next;
 		tempNext->prev = tempPrev->next = newNode;
 		newNode->next = tempNext;
 		newNode->prev = tempPrev;
 		Count++;
 	}
 };
+
+int main()
+{
+	DoublyLinkedList<int> list;
+
+	for (int i = 0; i < 4; i++)
+		list.AddTail(new Node<int>(i));
+
+	list.Print();
+}
