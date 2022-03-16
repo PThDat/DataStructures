@@ -1,7 +1,7 @@
 template <class T>
 class Node
 {
-    T Data;    
+    T Data;
 
 public:
     Node<T>* next = NULL;
@@ -9,7 +9,7 @@ public:
     T GetData()
     {
         return Data;
-    }
+    } 
 
     Node(T val)
     {
@@ -24,30 +24,31 @@ struct SinglyLinkedList
     Node<T>* Head = NULL;
     Node<T>* Tail = NULL;
 
-    void AddHead(Node<T>* newNode)
+    void AddHead(T newData)
     {
         if (Head == NULL)
         {
-            Head = Tail = newNode;
+            Head = Tail = new Node<T>(newData);
             Count++;
             return;
         }
 
-        newNode->next = Head;
-        Head = newNode;
+        Node<T>* temp = new Node<T>(newData);
+        temp->next = Head;
+        Head = temp;
         Count++;
     }
 
-    void AddTail(Node<T>* newNode)
+    void AddTail(T newData)
     {
         if (Head == NULL)
         {
-            Head = Tail = newNode;
+            Head = Tail = new Node<T>(newData);
             Count++;
             return;
         }
 
-        Tail = Tail->next = newNode;
+        Tail = Tail->next = new Node<T>(newData);
         Count++;
     }
 
@@ -154,22 +155,23 @@ struct SinglyLinkedList
         }
     }
 
-    void InsertAt(int index, Node<T>* newNode)
+    void InsertAt(int index, T newData)
     {
         if (index <= 0)
         {
-            AddHead(newNode);
+            AddHead(newData);
             return;
         }
         if (index >= Count)
         {
-            AddTail(newNode);
+            AddTail(newData);
             return;
         }
 
         Node<T>* tempPrev = ElementAt(index - 1);
-        newNode->next = tempPrev->next;
-        tempPrev->next = newNode;
+        Node<T>* temp = new Node<T>(newData);
+        temp->next = tempPrev->next;
+        tempPrev->next = temp;
         Count++;
     }
 };
