@@ -1,14 +1,14 @@
-template <class Type>
+template <class T>
 class Stack
 {
-	Type data[1000];
+	T data[1000];
 
 public:
 	int Size = 0;
 
 	void Push(Type newData)
 	{
-		if (Size <= (sizeof(data) / sizeof(Type)))
+		if (Size <= (sizeof(data) / sizeof(T)))
 		{
 			data[Size] = newData;
 			Size++;
@@ -21,7 +21,7 @@ public:
 			Size--;
 	}
 
-	Type Top()
+	T Top()
 	{
 		return data[Size - 1];
 	}
