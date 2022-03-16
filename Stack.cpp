@@ -1,6 +1,6 @@
-template <class Type> class Stack
+template <class Type>
+class Stack
 {
-private:
 	Type data[1000];
 
 public:
