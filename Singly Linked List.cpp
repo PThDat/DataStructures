@@ -1,21 +1,30 @@
-struct Node
+template <class T>
+class Node
 {
-    int Value;
-    Node* next = NULL;
+    T Data;    
 
-    Node(int val)
+public:
+    Node<T>* next = NULL;
+
+    T GetData()
     {
-        Value = val;
+        return Data;
+    }
+
+    Node(T val)
+    {
+        Data = val;
     }
 };
 
+template <class T>
 struct SinglyLinkedList
 {
     int Count = 0;
-    Node* Head = NULL;
-    Node* Tail = NULL;
+    Node<T>* Head = NULL;
+    Node<T>* Tail = NULL;
 
-    void AddHead(Node* newNode)
+    void AddHead(Node<T>* newNode)
     {
         if (Head == NULL)
         {
@@ -29,7 +38,7 @@ struct SinglyLinkedList
         Count++;
     }
 
-    void AddTail(Node* newNode)
+    void AddTail(Node<T>* newNode)
     {
         if (Head == NULL)
         {
@@ -46,16 +55,17 @@ struct SinglyLinkedList
     {
         if (Head == NULL)
             return;
-        Node* temp = Head;
-        cout << temp->Value << " ";
+
+        Node<T>* temp = Head;
+        cout << temp->GetData() << " ";
         while (temp->next)
         {
             temp = temp->next;
-            cout << temp->Value << " ";
+            cout << temp->GetData() << " ";
         }
     }
 
-    Node* ElementAt(int index)
+    Node<T>* ElementAt(int index)
     {
         if (index < 0 || index >= Count)
             return NULL;
@@ -63,7 +73,7 @@ struct SinglyLinkedList
         if (index == Count - 1)
             return Tail;
 
-        Node* temp = Head;
+        Node<T>* temp = Head;
 
         for (int i = 0; i < index; i++)
             temp = temp->next;
@@ -78,15 +88,15 @@ struct SinglyLinkedList
 
         if (index == 0)
         {
-            Node* temp = Head;
+            Node<T>* temp = Head;
             Head = Head->next;
             delete temp;
             Count--;
             return;
         }
 
-        Node* tempPrev = ElementAt(index - 1);
-        Node* elementToDelete = tempPrev->next;
+        Node<T>* tempPrev = ElementAt(index - 1);
+        Node<T>* elementToDelete = tempPrev->next;
         tempPrev->next = elementToDelete->next;
 
         if (elementToDelete == Tail)
@@ -110,9 +120,9 @@ struct SinglyLinkedList
 
         if (index2 - index1 == 1) //if index1 is next to index2
         {
-            Node* ele1 = ElementAt(index1);
-            Node* ele2 = ele1->next;
-            Node* ele2Next = ele2->next;
+            Node<T>* ele1 = ElementAt(index1);
+            Node<T>* ele2 = ele1->next;
+            Node<T>* ele2Next = ele2->next;
 
             ele2->next = ele1;
             ele1->next = ele2Next;
@@ -125,10 +135,10 @@ struct SinglyLinkedList
         }
         else
         {
-            Node* ele1 = ElementAt(index1);
-            Node* ele2Prev = ElementAt(index2-1);
-            Node* ele2 = ele2Prev->next;
-            Node* ele2Next = ele2->next;
+            Node<T>* ele1 = ElementAt(index1);
+            Node<T>* ele2Prev = ElementAt(index2 - 1);
+            Node<T>* ele2 = ele2Prev->next;
+            Node<T>* ele2Next = ele2->next;
 
             ele2->next = ele1->next;
             ele2Prev->next = ele1;
@@ -144,7 +154,7 @@ struct SinglyLinkedList
         }
     }
 
-    void InsertAt(int index, Node* newNode)
+    void InsertAt(int index, Node<T>* newNode)
     {
         if (index <= 0)
         {
@@ -157,7 +167,7 @@ struct SinglyLinkedList
             return;
         }
 
-        Node* tempPrev = ElementAt(index - 1);
+        Node<T>* tempPrev = ElementAt(index - 1);
         newNode->next = tempPrev->next;
         tempPrev->next = newNode;
         Count++;
