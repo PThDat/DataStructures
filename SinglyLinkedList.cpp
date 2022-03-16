@@ -18,11 +18,13 @@ public:
 };
 
 template <class T>
-struct SinglyLinkedList
+class SinglyLinkedList
 {
-    int Count = 0;
     Node<T>* Head = NULL;
     Node<T>* Tail = NULL;
+
+public:
+    int Count = 0;
 
     void AddHead(T newData)
     {
@@ -50,20 +52,6 @@ struct SinglyLinkedList
 
         Tail = Tail->next = new Node<T>(newData);
         Count++;
-    }
-
-    void Print()
-    {
-        if (Head == NULL)
-            return;
-
-        Node<T>* temp = Head;
-        cout << temp->GetData() << " ";
-        while (temp->next)
-        {
-            temp = temp->next;
-            cout << temp->GetData() << " ";
-        }
     }
 
     Node<T>* ElementAt(int index)
