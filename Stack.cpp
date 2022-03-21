@@ -6,7 +6,7 @@ class Stack
 public:
 	int Size = 0;
 
-	void Push(const T &newData)
+	void Push(const T& newData)
 	{
 		if (Size <= (sizeof(data) / sizeof(T)))
 		{
