@@ -13,41 +13,52 @@ private:
 public:
 	int Size = 0;
 
-	void Enqueue(const T& newData)
-	{
-		if (!IsFull())
-		{
-			rear = (rear + 1) % (sizeof(data) / sizeof(T));
-			data[rear] = newData;
-			Size++;
-		}
-	}
-
-	void Dequeue()
-	{
-		if (Size > 0)
-		{
-			front = (front + 1) % (sizeof(data) / sizeof(T));
-			Size--;
-		}
-	}
-
-	T Front()
-	{
-		if (Size > 0)
-			return data[front];
-		return NULL;
-	}
-
-	T Back()
-	{
-		if (Size > 0)
-			return data[rear];
-		return NULL;
-	}
-
-	bool IsEmpty()
-	{
-		return Size == 0;
-	}
+	void Enqueue(const T&);
+	void Dequeue();
+	T Front();
+	T Back();
+	bool IsEmpty();
 };
+
+template <class T>
+void CircularQueue<T>::Enqueue(const T& newData)
+{
+	if (!IsFull())
+	{
+		rear = (rear + 1) % (sizeof(data) / sizeof(T));
+		data[rear] = newData;
+		Size++;
+	}
+}
+
+template <class T>
+void CircularQueue<T>::Dequeue()
+{
+	if (Size > 0)
+	{
+		front = (front + 1) % (sizeof(data) / sizeof(T));
+		Size--;
+	}
+}
+
+template <class T>
+T CircularQueue<T>::Front()
+{
+	if (Size > 0)
+		return data[front];
+	return NULL;
+}
+
+template <class T>
+T CircularQueue<T>::Back()
+{
+	if (Size > 0)
+		return data[rear];
+	return NULL;
+}
+
+template <class T>
+bool CircularQueue<T>::IsEmpty()
+{
+	return Size == 0;
+}
