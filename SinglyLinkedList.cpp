@@ -11,7 +11,7 @@ public:
         return Data;
     } 
 
-    Node(T val)
+    Node(const T& val)
     {
         Data = val;
     }
