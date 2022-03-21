@@ -3,7 +3,7 @@ class CircularQueue
 {
 private:
 	int front = 0, rear = -1;
-	T data[1000];
+	T data[100];
 
 	bool IsFull()
 	{
