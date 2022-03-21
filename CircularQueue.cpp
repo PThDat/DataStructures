@@ -13,7 +13,7 @@ private:
 public:
 	int Size = 0;
 
-	void Enqueue(const T &newData)
+	void Enqueue(const T& newData)
 	{
 		if (!IsFull())
 		{
