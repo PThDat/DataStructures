@@ -12,7 +12,7 @@ public:
 		return Data;
 	}
 
-	Node<T>(T val)
+	Node<T>(const T& val)
 	{
 		Data = val;
 	}
@@ -27,7 +27,7 @@ class DoublyLinkedList
 public:
 	unsigned int Count = 0;
 
-	void AddTail(T newData)
+	void AddTail(const T& newData)
 	{
 		if (Head == NULL)
 		{
@@ -42,7 +42,7 @@ public:
 		Count++;
 	}
 
-	void AddHead(T newData)
+	void AddHead(const T& newData)
 	{
 		if (Head == NULL)
 		{
@@ -173,7 +173,7 @@ public:
 			Tail = ele1;
 	}
 
-	void InsertAt(int index, T newData)
+	void InsertAt(int index, const T& newData)
 	{
 		if (index <= 0)
 		{
