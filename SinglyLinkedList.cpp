@@ -26,7 +26,7 @@ class SinglyLinkedList
 public:
     int Count = 0;
 
-    void AddHead(const T &newData)
+    void AddHead(const T& newData)
     {
         if (Head == NULL)
         {
@@ -41,7 +41,7 @@ public:
         Count++;
     }
 
-    void AddTail(const T &newData)
+    void AddTail(const T& newData)
     {
         if (Head == NULL)
         {
@@ -143,7 +143,7 @@ public:
         }
     }
 
-    void InsertAt(int index, const T &newData)
+    void InsertAt(int index, const T& newData)
     {
         if (index <= 0)
         {
