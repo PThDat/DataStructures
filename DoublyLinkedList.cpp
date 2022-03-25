@@ -170,7 +170,7 @@ void DoublyLinkedList<T>::SwapElement(int index1, int index2)
 	else
 	{
 		//Store the path
-		Node<T>* temp = new Node(0);
+		Node<T>* temp = new Node<T>(T());
 		temp->next = ele1->next;
 		temp->prev = ele1->prev;
 
