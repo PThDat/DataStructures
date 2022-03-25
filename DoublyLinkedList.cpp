@@ -126,7 +126,38 @@ void DoublyLinkedList<T>::SwapElement(int index1, int index2)
 	}
 	Node<T>* ele1 = ElementAt(index1);
 	Node<T>* ele2 = ElementAt(index2);
-
+	
+	if (index1 == 0 && index2 == Count - 1)
+    {
+        ele1->prev = ele2->prev;
+        ele2->prev->next = ele1;
+        ele2->next = ele1->next;
+        ele2->prev = NULL;
+        ele1->next = NULL;
+        Head = ele2;
+        Tail = ele1;
+        return;
+    }
+    if (index1 == 0)
+    {
+        ele1->next = ele2->next;
+        ele2->prev = NULL;
+        ele1->prev = ele2;
+        ele2->next = ele1;
+        Head = ele2;
+        return;
+    }
+    if (index2 == Count - 1)
+    {
+        ele2->prev = ele1->prev;
+        ele1->prev->next = ele2;
+        ele1->next = NULL;
+        ele1->prev = ele2;
+        ele2->next = ele1;
+        Tail = ele1;
+        return;
+    }
+	
 	if (index2 - index1 == 1) //if i1 is next to i2
 	{
 		ele1->prev->next = ele2;
