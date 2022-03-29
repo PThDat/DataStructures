@@ -56,6 +56,7 @@ Node* BinarySearchTree::Search(int target, Node*& root)
 	else return Search(target, root->right);
 }
 
+//LNR
 void BinarySearchTree::InorderTraversal(Node* node)
 {
 	stack<Node*> stack;
@@ -77,6 +78,7 @@ void BinarySearchTree::InorderTraversal(Node* node)
 	}
 }
 
+//NLR
 void BinarySearchTree::PreorderTraversal(Node* node)
 {
 	Node* curr = node;
@@ -101,6 +103,7 @@ void BinarySearchTree::PreorderTraversal(Node* node)
 	}
 }
 
+//LRN
 void BinarySearchTree::PostorderTraversal(Node* node)
 {
 	if (node == NULL)
